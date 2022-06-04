@@ -1,3 +1,5 @@
+-r requirements.txt
+
 pip
 bump2version
 wheel
@@ -7,6 +9,5 @@ tox
 coverage
 Sphinx
 twine
-Click
 pytest
 black

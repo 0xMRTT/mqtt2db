@@ -87,3 +87,6 @@ dist: clean ## builds source and wheel package
 
 install: clean ## install the package to the active Python's site-packages
 	python setup.py install
+
+install_user: clean
+    python setup.py install --prefix ~/.local/lib/python3.10/site-packages

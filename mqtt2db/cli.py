@@ -28,7 +28,7 @@ def main():
 
 @main.command()
 def run():
-    pass
+    logo()
 
 
 if __name__ == "__main__":

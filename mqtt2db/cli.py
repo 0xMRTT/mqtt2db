@@ -30,19 +30,6 @@ def main():
 def run():
     logo()
 
-@main.group()
-def config():
-    pass
-
-from .mqtt2db import config_get, config_set
-@config.command()
-def get(key):
-    config_get(key)
-
-@config.command()
-def set(key, value):
-    config_set(key, value)
-
 
 
 if __name__ == "__main__":

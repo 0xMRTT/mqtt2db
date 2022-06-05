@@ -89,4 +89,4 @@ install: clean ## install the package to the active Python's site-packages
 	python setup.py install
 
 install_user: clean
-    python setup.py install --prefix ~/.local/
+    python setup.py install --prefix ~/.local

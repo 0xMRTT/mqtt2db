@@ -1,28 +1,24 @@
 """Main module."""
 
 from pathlib import Path
-MQTT2DB_CONFIG_FILE: Path = Path("~/.config/mqtt2db.toml").expanduser()
+
+MQTT2DB_CONFIG_FILE = Path("~/.config/mqtt2db.toml").expanduser()
 import toml
-import click
+import logging
 
-def config_set(key:str, value:str) -> None:
-    with MQTT2DB_CONFIG_FILE.open("a") as config_file:
-        config_dict:dict = toml.load(config_file)
-        try:
-            config_dict[key] = value
-        except Exception as e:
-            return False
-        else:
-            toml.dump(config_dict, config_file)
-            return True
+logger = logging.getLogger("mqtt2db")
 
 
-def config_get(key:str) -> None:
-    with MQTT2DB_CONFIG_FILE.open("r") as config_file:
-        config_dict:dict = toml.load(config_file)
-        try:
+def config_get(key: str) -> None:
+    """Get value from the config file"""
+    with MQTT2DB_CONFIG_FILE.open("r") as config_file: # Open the config file
+        logger.info(f"Open {MQTT2DB_CONFIG_FILE}")
+        config_dict: dict = toml.load(config_file) # Load the file and parse the content with toml
+        try: # Try to get the key
             get = config_dict[key]
-        except Exception as e:
+        except KeyError as e: # If there is no key return False and log the error
+            logger.error(f"Unable to found key {e}")
             return False
-        else:
+        else: # Else, return the value and log the value
+            logger.info(f"{key} -> {get}")
             return get

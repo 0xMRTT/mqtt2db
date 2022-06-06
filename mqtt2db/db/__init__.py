@@ -48,7 +48,7 @@ class BaseConnector:
             self.connexion.commit()
             self.debug("Commit transaction")
 
-    def create_table(self, table_name:str, **kwargs) -> None:
+    def create_table(self, table_name: str, **kwargs) -> None:
         """Create a table in the database
 
         Args:
@@ -62,8 +62,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-
-    def create(self, table_name:str, **kwargs) -> None:
+    def create(self, table_name: str, **kwargs) -> None:
         """Create a new row in the database
 
         Args:
@@ -72,7 +71,7 @@ class BaseConnector:
         if self.is_connected():
             self.debug("Creating row in table %s", table_name)
             query = f"INSERT INTO {table_name} ("
-            for key, in kwargs.keys():
+            for (key,) in kwargs.keys():
                 query += f"{key},"
             query = query[:-1] + ") VALUES ("
             for value in kwargs.values():
@@ -81,7 +80,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def read(self, table_name:str, **kwargs) -> None:
+    def read(self, table_name: str, **kwargs) -> None:
         """Read a row from the database
 
         Args:
@@ -98,7 +97,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def update(self, table_name:str, **kwargs) -> None:
+    def update(self, table_name: str, **kwargs) -> None:
         """Update a row in the database
 
         Args:
@@ -113,7 +112,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def delete(self, table_name:str, **kwargs) -> None:
+    def delete(self, table_name: str, **kwargs) -> None:
         """Delete a row from the database
 
         Args:
@@ -130,7 +129,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def delete_table(self, table_name:str) -> None:
+    def delete_table(self, table_name: str) -> None:
         """Delete a table from the database
 
         Args:

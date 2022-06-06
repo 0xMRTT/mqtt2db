@@ -48,7 +48,7 @@ class BaseConnector:
             self.connexion.commit()
             self.debug("Commit transaction")
 
-    def create_table(self, table_name, **kwargs) -> None:
+    def create_table(self, table_name:str, **kwargs) -> None:
         """Create a table in the database
 
         Args:
@@ -63,7 +63,7 @@ class BaseConnector:
             self.connexion.execute(query)
 
 
-    def create(self, table_name, **kwargs) -> None:
+    def create(self, table_name:str, **kwargs) -> None:
         """Create a new row in the database
 
         Args:
@@ -81,7 +81,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def read(self, table_name, **kwargs) -> None:
+    def read(self, table_name:str, **kwargs) -> None:
         """Read a row from the database
 
         Args:
@@ -98,7 +98,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def update(self, table_name, **kwargs) -> None:
+    def update(self, table_name:str, **kwargs) -> None:
         """Update a row in the database
 
         Args:
@@ -113,7 +113,7 @@ class BaseConnector:
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
-    def delete(self, table_name, **kwargs) -> None:
+    def delete(self, table_name:str, **kwargs) -> None:
         """Delete a row from the database
 
         Args:
@@ -127,5 +127,16 @@ class BaseConnector:
                 for key, value in kwargs.items():
                     query += f"{key} = {value} AND "
                 query = query[:-4]
+            self.debug("Execute '%s'", query)
+            self.connexion.execute(query)
+
+    def delete_table(self, table_name:str) -> None:
+        """Delete a table from the database
+
+        Args:
+            table_name (str): name of the table"""
+        if self.is_connected():
+            self.debug("Deleting table %s", table_name)
+            query = f"DROP TABLE IF EXISTS {table_name}"
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)

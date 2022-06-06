@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "mqtt2db"
+version = "0.1.0"
+description = "Save mqtt data to a database"
+authors = ["0xMRTT <0xMRTT@tuta.io>"]
+maintainers = ["0xMRTT <0xMRTT@tuta.io>"]
+license = "MIT"
+readme = "README.rst"
+homepage = "https://0xMRTT.github.io/docs/mqtt2db"
+documentation = "https://0xMRTT.github.io/docs/mqtt2db"
+repository = "https://github.com/0xMRTT/mqtt2db"
+keywords = ["mqtt", "database", "mqtt2db"]
+classifiers=[
+    'Development Status :: 2 - Pre-Alpha',
+    'Intended Audience :: Developers',
+    'License :: OSI Approved :: MIT License',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.10',
+]
+packages = [
+    { include = "mqtt2db" },
+    { include = "mqtt2db.*" },
+]
+
+[tool.poetry.scripts]
+mqtt2db = 'mqtt2db.cli:run'
+
+[tool.poetry.dependencies]
+python = "^3.10"
+paho-mqtt = "^1.6.1"
+Click = "^7.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^3.6"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

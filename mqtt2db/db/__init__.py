@@ -89,9 +89,11 @@ class BaseConnector:
             **kwargs: key-value pairs of the row to read"""
         if self.is_connected():
             self.debug("Reading row from table %s", table_name)
-            query = f"SELECT * FROM {table_name} WHERE "
-            for key, value in kwargs.items():
-                query += f"{key} = {value} AND "
-            query = query[:-4]
+            query = f"SELECT * FROM {table_name}"
+            if kwargs is not None:
+                query += " WHERE "
+                for key, value in kwargs.items():
+                    query += f"{key} = {value} AND "
+                query = query[:-4]
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)

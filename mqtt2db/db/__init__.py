@@ -78,3 +78,20 @@ class BaseConnector:
             for value in kwargs.values():
                 query += f"{value},"
             query = query[:-1] + ")"
+            self.debug("Execute '%s'", query)
+            self.connexion.execute(query)
+
+    def read(self, table_name, **kwargs) -> None:
+        """Read a row from the database
+
+        Args:
+            table_name (str): name of the table
+            **kwargs: key-value pairs of the row to read"""
+        if self.is_connected():
+            self.debug("Reading row from table %s", table_name)
+            query = f"SELECT * FROM {table_name} WHERE "
+            for key, value in kwargs.items():
+                query += f"{key} = {value} AND "
+            query = query[:-4]
+            self.debug("Execute '%s'", query)
+            self.connexion.execute(query)

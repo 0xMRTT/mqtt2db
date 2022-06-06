@@ -20,7 +20,6 @@ classifiers=[
 ]
 packages = [
     { include = "mqtt2db" },
-    { include = "mqtt2db.*" },
 ]
 
 [tool.poetry.scripts]

@@ -4,9 +4,15 @@ import logging
 class BaseConnector:
     """Basic CRUD methods"""
 
-    def __init__(self, config) -> None:
+    def __init__(self, config: dict) -> None:
+        """Initialize the database connector
+
+        Args:
+            config (dict): It's the config of mqtt2db
+        """
         self.config = config
         self.connexion = None
+        self.cursor = None
 
     def debug(self, msg, *args, **kwargs) -> None:
         """Debug the database"""
@@ -14,6 +20,8 @@ class BaseConnector:
 
     def connect(self) -> None:
         """Connect to the database
+
+        You must set the connexion attribute to the connexion object
 
         Raises:
             NotImplementedError: if the method isn't overridden
@@ -60,7 +68,7 @@ class BaseConnector:
                 query += f"{key} {value.upper()},"  # Add the column to the query using the key and the value where the value is the type of the column
             query = query[:-1] + ")"
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)
 
     def create(self, table_name: str, **kwargs) -> None:
         """Create a new row in the database
@@ -71,14 +79,14 @@ class BaseConnector:
         if self.is_connected():
             self.debug("Creating row in table %s", table_name)
             query = f"INSERT INTO {table_name} ("
-            for (key,) in kwargs.keys():
+            for key in kwargs.keys():
                 query += f"{key},"
             query = query[:-1] + ") VALUES ("
             for value in kwargs.values():
                 query += f"{value},"
             query = query[:-1] + ")"
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)
 
     def read(self, table_name: str, **kwargs) -> None:
         """Read a row from the database
@@ -95,7 +103,7 @@ class BaseConnector:
                     query += f"{key} = {value} AND "
                 query = query[:-4]
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)
 
     def update(self, table_name: str, **kwargs) -> None:
         """Update a row in the database
@@ -110,7 +118,7 @@ class BaseConnector:
                 query += f"{key} = {value},"
             query = query[:-1]
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)
 
     def delete(self, table_name: str, **kwargs) -> None:
         """Delete a row from the database
@@ -127,7 +135,7 @@ class BaseConnector:
                     query += f"{key} = {value} AND "
                 query = query[:-4]
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)
 
     def delete_table(self, table_name: str) -> None:
         """Delete a table from the database
@@ -138,4 +146,4 @@ class BaseConnector:
             self.debug("Deleting table %s", table_name)
             query = f"DROP TABLE IF EXISTS {table_name}"
             self.debug("Execute '%s'", query)
-            self.connexion.execute(query)
+            self.cursor.execute(query)

@@ -41,31 +41,3 @@ else:
 finally:
     logger.info("Logging configuration loaded.")
 
-
-class QueuedMessage:
-    """Class to store a message received from MQTT broker."""
-
-    __slots__ = [
-        "receive_time",
-        "topic",
-        "payload",
-        "sub_handler",
-        "qos",
-        "timeserie_sub_handlers",
-    ]
-
-    def __init__(
-        self,
-        receive_time,
-        topic,
-        payload,
-        qos,
-        sub_handler,
-        timeserie_sub_handlers=None,
-    ):
-        self.receive_time = receive_time
-        self.topic = topic
-        self.payload = payload
-        self.qos = qos
-        self.sub_handler = sub_handler
-        self.timeserie_sub_handlers = timeserie_sub_handlers

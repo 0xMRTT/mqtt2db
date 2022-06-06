@@ -58,7 +58,23 @@ class BaseConnector:
             query = f"CREATE TABLE IF NOT EXISTS {table_name} (id INTEGER PRIMARY KEY AUTOINCREMENT, "
             for key, value in kwargs.items():
                 query += f"{key} {value.upper()},"  # Add the column to the query using the key and the value where the value is the type of the column
+            query = query[:-1] + ")"
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
 
 
+    def create(self, table_name, **kwargs) -> None:
+        """Create a new row in the database
+
+        Args:
+            table_name (str): name of the table
+            **kwargs: key-value pairs of the row to create"""
+        if self.is_connected():
+            self.debug("Creating row in table %s", table_name)
+            query = f"INSERT INTO {table_name} ("
+            for key, in kwargs.keys():
+                query += f"{key},"
+            query = query[:-1] + ") VALUES ("
+            for value in kwargs.values():
+                query += f"{value},"
+            query = query[:-1] + ")"

@@ -112,3 +112,20 @@ class BaseConnector:
             query = query[:-1]
             self.debug("Execute '%s'", query)
             self.connexion.execute(query)
+
+    def delete(self, table_name, **kwargs) -> None:
+        """Delete a row from the database
+
+        Args:
+            table_name (str): name of the table
+            **kwargs: key-value pairs of the row to delete"""
+        if self.is_connected():
+            self.debug("Deleting row from table %s", table_name)
+            query = f"DELETE FROM {table_name}"
+            if kwargs is not None:
+                query += " WHERE "
+                for key, value in kwargs.items():
+                    query += f"{key} = {value} AND "
+                query = query[:-4]
+            self.debug("Execute '%s'", query)
+            self.connexion.execute(query)

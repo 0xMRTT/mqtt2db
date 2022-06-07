@@ -26,7 +26,7 @@ Save mqtt data to a database
 Features
 --------
 
-* TODO
+* Support Sqlite
 
 Credits
 -------

@@ -20,7 +20,7 @@ Save mqtt data to a database
 
 
 * Free software: MIT license
-* Documentation: https://mqtt2db.readthedocs.io.
+* Documentation: https://0xMRTT.github.io/docs/mqtt2db/getting-started/install.
 
 
 Features

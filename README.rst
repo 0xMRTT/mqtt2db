@@ -27,7 +27,7 @@ Features
 --------
 
 * Support Sqlite
-
+* Support MySQL
 Credits
 -------
 

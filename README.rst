@@ -18,6 +18,10 @@ Mqtt2DB
 
 Save mqtt data to a database
 
+**I'm currently rewriting this project in rust.**
+
+**See [https://github.com/0xMRTT/mqtt2db-rs](https://github.com/0xMRTT/mqtt2db-rs) for more information**
+
 
 * Free software: MIT license
 * Documentation: https://0xMRTT.github.io/docs/mqtt2db/getting-started/install.
